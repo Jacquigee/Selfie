@@ -34,17 +34,41 @@ android {
     buildFeatures {
         compose = true
     }
+    androidResources {
+        // Prevent compression of MediaPipe LiteRT .task bundles so they can be memory-mapped directly
+        noCompress += listOf("task", "tflite")
+    }
 }
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // CameraX & CameraX Compose Viewfinder
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.compose)
+
+    // MediaPipe Tasks Vision (Face Landmarker + 52 Blendshapes via LiteRT)
+    implementation(libs.mediapipe.tasks.vision)
+
+    // Koin Dependency Injection
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    // Coroutines Guava bridge for ProcessCameraProvider ListenableFuture
+    implementation(libs.kotlinx.coroutines.guava)
+
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
