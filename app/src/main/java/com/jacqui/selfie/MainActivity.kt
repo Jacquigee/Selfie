@@ -5,43 +5,26 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.jacqui.selfie.ui.screen.EmotionDetectorScreen
 import com.jacqui.selfie.ui.theme.SelfieTheme
 
+/**
+ * Single-Activity host for the **Real-Time Emotion Detector with CameraX** presentation demo.
+ *
+ * Enables edge-to-edge rendering so the `CameraXViewfinder` and `FaceMeshOverlay` span the
+ * entire display while HUD controls respect system insets via `Modifier.safeDrawingPadding()`.
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SelfieTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            SelfieTheme(darkTheme = true, dynamicColor = false) {
+                EmotionDetectorScreen(
+                    modifier = Modifier.fillMaxSize()
+                )
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SelfieTheme {
-        Greeting("Android")
     }
 }
