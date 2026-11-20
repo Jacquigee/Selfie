@@ -62,13 +62,10 @@ class EmotionImageAnalyzer(
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
-    @Volatile
     private var faceLandmarker: FaceLandmarker? = null
 
-    @Volatile
     private var isFrontCamera: Boolean = true
 
-    @Volatile
     private var activeDelegate: InferenceDelegate = InferenceDelegate.CPU
 
     // Reusable bitmap buffer to eliminate per-frame heap allocations (Takeaway #5)
